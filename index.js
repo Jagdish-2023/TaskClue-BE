@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://taskclue.vercel.app/",
+    origin: "*",
     credentials: true,
     optionSuccessStatus: 200,
   })
