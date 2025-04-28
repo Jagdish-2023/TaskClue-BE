@@ -7,7 +7,13 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://taskclue.vercel.app/",
+    credentials: true,
+    optionSuccessStatus: 200,
+  })
+);
 
 const Project = require("./models/project.model");
 const Tag = require("./models/tag.model");
