@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://taskclue.vercel.app",
     credentials: true,
     optionSuccessStatus: 200,
   })
@@ -125,6 +125,9 @@ app.get("/tasks", verifyJWT, async (req, res) => {
     const tasks = await Task.find(queryParams)
       .populate("owners", "_id name")
       .populate("project", "_id name description");
+
+    if (tasks.length < 1)
+      return res.status(404).json({ message: "Tasks not found" });
 
     res.status(200).json({ project: tasks[0].project, tasks });
   } catch (error) {
